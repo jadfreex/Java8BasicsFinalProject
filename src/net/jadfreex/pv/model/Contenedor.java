@@ -2,6 +2,7 @@ package net.jadfreex.pv.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -9,14 +10,28 @@ import java.util.List;
  */
 public class Contenedor implements Serializable {
 
-    protected List<Articulo> articulos;
+    protected Map<Integer, Articulo> articulos;
 
-    public List<Articulo> getArticulos() {
+    public Map<Integer, Articulo> getArticulos() {
         return articulos;
     }
 
-    public void setArticulos(List<Articulo> articulos) {
+    public void setArticulos(Map<Integer, Articulo> articulos) {
         this.articulos = articulos;
+    }
+
+    public String toString() {
+        if(null != this.articulos) {
+            StringBuilder sb = new StringBuilder();
+            for (Map.Entry<Integer, Articulo> entry : this.getArticulos().entrySet()) {
+                if(null != entry.getValue().getQuantity() && entry.getValue().getQuantity() > 0) {
+                    sb.append(entry.getValue())
+                            .append("\n");
+                }
+            }
+            return sb.toString();
+        }
+        return super.toString();
     }
 
 }
