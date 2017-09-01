@@ -72,15 +72,17 @@ public class TiendaView extends View<Carrito> {
             }
         }
         if(this.carrito.getSize() > 0) {
-            System.out.println("\n+++++++++++++++++++++++++++++++++++++++++++++");
             //CTE
             Cliente cte = new Cliente();
             cte.setCarrito(this.carrito);
             //TICKET
+            System.out.println("\n+++++++++++++++++++++++++++++++++++++++++++++");
             Ticket ticket = this.tiendaLogic.sell(this.tienda, cte);
             System.out.println(ticket);
-            //
             System.out.println("+++++++++++++++++++++++++++++++++++++++++++++\n");
+            //FACTURA
+            System.out.println(Messages.PRINT_BILL);
+            System.out.println(Messages.PRINT_BILL_YES);
         }
         return carrito;
     }

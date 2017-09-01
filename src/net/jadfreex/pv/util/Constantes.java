@@ -11,4 +11,7 @@ public interface Constantes {
     int OP_VIEW = 3;
     int OP_EXIT = -1;
 
+    int BILL_YES = 1;
+    int BILL_NO = 2;
+
 }

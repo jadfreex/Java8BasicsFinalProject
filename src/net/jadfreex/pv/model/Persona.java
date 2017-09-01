@@ -8,16 +8,16 @@ import java.io.Serializable;
  */
 public class Persona implements Serializable {
 
-    private String nombres;
+    private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
 
-    public String getNombres() {
-        return nombres;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getApellidoPaterno() {
@@ -38,7 +38,7 @@ public class Persona implements Serializable {
 
     @Override
     public String toString() {
-        return nombres + " " + apellidoPaterno + " " + apellidoMaterno;
+        return nombre + " " + apellidoPaterno + " " + apellidoMaterno;
     }
 
 }

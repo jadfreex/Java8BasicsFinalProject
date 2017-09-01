@@ -11,7 +11,7 @@ public class Tienda extends Contenedor {
     private String razonSocial;
     private String RFC;
     private String direccion;
-    private Map<String, Cliente> cliente;
+    private Map<String, Cliente> clientes;
 
     public String getRazonSocial() {
         return razonSocial;
@@ -37,12 +37,12 @@ public class Tienda extends Contenedor {
         this.direccion = direccion;
     }
 
-    public Map<String, Cliente> getCliente() {
-        return cliente;
+    public Map<String, Cliente> getClientes() {
+        return clientes;
     }
 
-    public void setCliente(Map<String, Cliente> cliente) {
-        this.cliente = cliente;
+    public void setClientes(Map<String, Cliente> clientes) {
+        this.clientes = clientes;
     }
 
     public String getData() {
