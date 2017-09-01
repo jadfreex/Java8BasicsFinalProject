@@ -9,13 +9,19 @@ import net.jadfreex.pv.model.Contenedor;
  *
  * @author 170828 Grupo Salinas
  */
-public class ContenedorLogic {
+public abstract class ContenedorLogic<T extends Contenedor> {
 
-    public Contenedor newInstance() {
-        Contenedor container = new Contenedor();
-        container.setSize(0);
-        container.setArticulos(new HashMap<Integer, Articulo>());
-        return container;
+    abstract T newInstance();
+
+    public T newInstance(Class<? extends Contenedor> clazz) {
+        try {
+            T container = (T)clazz.newInstance();
+            container.setSize(0);
+            container.setArticulos(new HashMap<Integer, Articulo>());
+            return container;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public Contenedor addArticle(Contenedor container, Integer index, Articulo article) {
@@ -27,11 +33,11 @@ public class ContenedorLogic {
         return container;
     }
 
-    public Contenedor removeArticle(Contenedor container, Integer index) {
+    public Contenedor removeArticle(Contenedor container, Integer index, Articulo article) {
         if(null != container && null != container.getArticulos())  {
             Map<Integer, Articulo> articles = container.getArticulos();
-            Articulo article = articles.get(index);
-            container.setSize(container.getSize() - article.getQuantity());
+            Articulo aux = articles.get(index);
+            container.setSize(container.getSize() - aux.getQuantity());
             articles.remove(index);
         }
         return container;

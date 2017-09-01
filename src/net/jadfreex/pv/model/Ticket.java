@@ -1,11 +1,24 @@
 package net.jadfreex.pv.model;
 
-import java.io.Serializable;
-
 /**
  *
  * @author 170828 Grupo Salinas
  */
-public class Ticket implements Serializable {
+public class Ticket extends Comprobante {
+
+    public Ticket() {
+    }
+
+    public Ticket(Tienda store, Cliente customer) {
+        super(store, customer);
+    }
     
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getStore().getData())
+                .append(this.getCustomer().getCarrito().getArticulos());
+        return sb.toString();
+    }
+
 }

@@ -1,18 +1,15 @@
 package net.jadfreex.pv.view;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import net.jadfreex.pv.commons.io.util.Input;
-import net.jadfreex.pv.commons.util.RandomUtil;
 import net.jadfreex.pv.commons.view.util.View;
-import net.jadfreex.pv.commons.view.util.ViewExecutor;
 import net.jadfreex.pv.logic.CarritoLogic;
+import net.jadfreex.pv.logic.ContenedorLogic;
 import net.jadfreex.pv.logic.TiendaLogic;
 import net.jadfreex.pv.model.Articulo;
 import net.jadfreex.pv.model.Carrito;
+import net.jadfreex.pv.model.Cliente;
 import net.jadfreex.pv.model.Contenedor;
+import net.jadfreex.pv.model.Ticket;
 import net.jadfreex.pv.model.Tienda;
 import net.jadfreex.pv.util.Constantes;
 import net.jadfreex.pv.util.Messages;
@@ -24,31 +21,32 @@ import net.jadfreex.pv.util.Messages;
 public class TiendaView extends View<Carrito> {
 
     private TiendaLogic tiendaLogic;
-    private Contenedor tienda;
+    private Tienda tienda;
     private CarritoLogic carritoLogic;
-    private Contenedor carrito;
+    private Carrito carrito;
 
     public TiendaView() {
+        //
         tiendaLogic = new TiendaLogic();
         tienda = tiendaLogic.newInstance();
+        //
         carritoLogic = new CarritoLogic();
         carrito = carritoLogic.newInstance();
     }
 
     @Override
     public Carrito print() {
-        //
-        Articulo article;
+        //SHOPPING CAR
         int oper;
-        Integer id;
-        int num;
         while (true) {
             System.out.println("\n+++++++++++++++++++++++++++++++++++++++++++++");
             //
             System.out.println(Messages.INTRODUCE_OP);
             System.out.println(String.format(Messages.ADD_CAR, Constantes.OP_ADD));
-            System.out.println(String.format(Messages.REMOVE_CAR, Constantes.OP_REMOVE));
-            System.out.println(String.format(Messages.VIEW_CAR, Constantes.OP_VIEW));
+            if(this.carrito.getSize() > 0) {
+                System.out.println(String.format(Messages.REMOVE_CAR, Constantes.OP_REMOVE));
+                System.out.println(String.format(Messages.VIEW_CAR, Constantes.OP_VIEW));
+            }
             System.out.println(String.format(Messages.END_CAR, Constantes.OP_EXIT));
             oper = Input.getInt();
             //
@@ -60,21 +58,10 @@ public class TiendaView extends View<Carrito> {
             //
             switch (oper) {
                 case Constantes.OP_ADD:
-                    System.out.println(this.tienda);
-                    System.out.println(Messages.SELECT_PRODUCT);
-                    id = Input.getInt();
-                    System.out.println(Messages.INPUT_QUANTITY);
-                    num = Input.getInt();
-                    article  = new Articulo(this.tiendaLogic.getArticle(this.tienda, id));
-                    article.setQuantity(num);
-                    this.carritoLogic.addArticle(this.carrito, id, article);
+                    this.transfer(this.tienda, this.tiendaLogic, this.carrito, this.carritoLogic);
                     break;
                 case Constantes.OP_REMOVE:
-                    System.out.println(this.carrito);
-                    System.out.println(Messages.SELECT_PRODUCT);
-                    id = Input.getInt();
-                    System.out.println(Messages.INPUT_QUANTITY);
-                    num = Input.getInt();
+                    this.transfer(this.carrito, this.carritoLogic, this.tienda, this.tiendaLogic);
                     break;
                 case Constantes.OP_VIEW:
                     System.out.println(this.carrito);
@@ -84,19 +71,35 @@ public class TiendaView extends View<Carrito> {
                     System.out.println(Messages.INVALID_OP);
             }
         }
+        if(this.carrito.getSize() > 0) {
+            System.out.println("\n+++++++++++++++++++++++++++++++++++++++++++++");
+            //CTE
+            Cliente cte = new Cliente();
+            cte.setCarrito(this.carrito);
+            //TICKET
+            Ticket ticket = this.tiendaLogic.sell(this.tienda, cte);
+            System.out.println(ticket);
+            //
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++\n");
+        }
+        return carrito;
+    }
+
+    private void transfer(Contenedor origen, ContenedorLogic logicOrigen,
+            Contenedor destino, ContenedorLogic logicDestino) {
+
+        System.out.println(origen);
         //
-//        Map<Integer, Articulo> articulos = new HashMap<>();
-//        for (int i = 0; i < cantidad.length; i++) {
-//            if(cantidad[i] > 0) {
-//                this.carritoLogic.addArticle(carrito, i, this.tienda.getArticulos().get(i));
-//            }
-//        }
+        System.out.println(Messages.SELECT_PRODUCT);
+        Integer id = Input.getInt();
+        System.out.println(Messages.INPUT_QUANTITY);
+        Integer num = Input.getInt();
         //
-//        this.carrito.setArticulos(articulos);
+        Articulo article  = new Articulo(logicOrigen.getArticle(origen, id));
+        article.setQuantity(num);
         //
-        Carrito shop = (Carrito)carrito;
-        System.out.println(shop);
-        return shop;
+        logicDestino.addArticle(destino, id, article);
+        logicOrigen.removeArticle(origen, id, article);
     }
 
 }

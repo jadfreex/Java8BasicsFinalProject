@@ -29,8 +29,11 @@ public class Articulo implements Serializable {
         this.discount = article.discount;
     }
 
-    
-    
+    public Articulo(Long id, Integer quantity) {
+        this.id = id;
+        this.quantity = quantity;
+    }
+
     public Long getId() {
         return id;
     }

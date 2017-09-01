@@ -36,4 +36,9 @@ public class Persona implements Serializable {
         this.apellidoMaterno = apellidoMaterno;
     }
 
+    @Override
+    public String toString() {
+        return nombres + " " + apellidoPaterno + " " + apellidoMaterno;
+    }
+
 }

@@ -1,8 +1,5 @@
 package net.jadfreex.pv.commons.view.util;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author 170828 Grupo Salinas
