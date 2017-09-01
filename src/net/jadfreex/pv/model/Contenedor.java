@@ -11,6 +11,7 @@ import java.util.Map;
 public class Contenedor implements Serializable {
 
     protected Map<Integer, Articulo> articulos;
+    protected Integer size;
 
     public Map<Integer, Articulo> getArticulos() {
         return articulos;
@@ -18,6 +19,14 @@ public class Contenedor implements Serializable {
 
     public void setArticulos(Map<Integer, Articulo> articulos) {
         this.articulos = articulos;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 
     public String toString() {

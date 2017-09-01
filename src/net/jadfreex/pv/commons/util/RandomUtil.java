@@ -11,6 +11,7 @@ public class RandomUtil {
     
     private static final String ABC = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz";
     private static final Integer L = ABC.length();
+
     private static SecureRandom random = new SecureRandom();
 
     synchronized public static Character getChar() {
@@ -34,7 +35,7 @@ public class RandomUtil {
     }
 
     synchronized public static Double getDouble() {
-        return Math.floor((random.nextDouble() * 999.0) * 100.0)/100.0;
+        return Math.floor((random.nextDouble() * 1000.0) * 100.0)/100.0;
     }
 
     synchronized public static Double getDoubleMin() {

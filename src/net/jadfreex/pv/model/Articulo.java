@@ -16,6 +16,21 @@ public class Articulo implements Serializable {
     private Boolean hasDiscount;
     private Double discount;
 
+    public Articulo() {
+    }
+
+    public Articulo(Articulo article) {
+        this.id = article.id;
+        this.name = article.name;
+        this.desc = article.desc;
+        this.price = article.price;
+        this.quantity = article.quantity;
+        this.hasDiscount = article.hasDiscount;
+        this.discount = article.discount;
+    }
+
+    
+    
     public Long getId() {
         return id;
     }

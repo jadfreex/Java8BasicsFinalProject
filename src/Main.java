@@ -1,7 +1,5 @@
-import net.jadfreex.pv.model.Empleado;
-import net.jadfreex.pv.commons.view.util.Menu;
-import net.jadfreex.pv.commons.view.util.MenuExecutor;
-import net.jadfreex.pv.view.MenuInit;
+import net.jadfreex.pv.commons.view.util.ViewExecutor;
+import net.jadfreex.pv.view.InitView;
 
 /**
  *
@@ -13,7 +11,7 @@ public class Main {
         System.out.println("[INIT]\n\n");
         long time = System.currentTimeMillis();
         //
-        MenuExecutor.show(MenuInit.class);
+        ViewExecutor.show(InitView.class);
         //
         System.out.println(String.format("\n\n[EXEC TIME: %s ms]", System.currentTimeMillis() - time));
         System.out.println("[END]");

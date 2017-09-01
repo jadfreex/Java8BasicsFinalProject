@@ -7,10 +7,10 @@ import java.util.logging.Logger;
  *
  * @author 170828 Grupo Salinas
  */
-public class MenuExecutor {
+public class ViewExecutor {
     
-    synchronized public static void show(Class<? extends Menu> clazz) {
-        Menu menu;
+    synchronized public static void show(Class<? extends View> clazz) {
+        View menu;
         try {
             menu = clazz.newInstance();
             menu.print();
